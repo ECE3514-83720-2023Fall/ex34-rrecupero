@@ -255,15 +255,18 @@ template <typename TreeItemType, typename FunctionType>
 BinaryTree<TreeItemType, FunctionType> BinaryTree<TreeItemType, FunctionType>::makeBinaryTree(const TreeItemType *array, int low, int high) {
     std::cout << "low, high = " << low << " " << high << std::endl;
     //TODO
-     if (low > high) {
+    if (low > high) {
         return BinaryTree<TreeItemType, FunctionType>();
     }
 
     int mid = (low + high) / 2;
     BinaryTree<TreeItemType, FunctionType> tree(array[mid]);
 
-    tree.attachLeftSubtree(makeBinaryTree(array, low, mid - 1));
-    tree.attachRightSubtree(makeBinaryTree(array, mid + 1, high));
+    // fix the stupid const problem
+    BinaryTree<TreeItemType, FunctionType> tempLeftTree = makeBinaryTree(array, low, mid - 1);
+    BinaryTree<TreeItemType, FunctionType> tempRightTree = makeBinaryTree(array, mid + 1, high);
+    tree.attachLeftSubtree(static_cast<BinaryTree<TreeItemType, FunctionType>&> (tempLeftTree));
+    tree.attachRightSubtree(static_cast<BinaryTree<TreeItemType, FunctionType>&> (tempRightTree));
 
     return tree;
 
