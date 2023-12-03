@@ -105,6 +105,7 @@ void BinaryTree<TreeItemType, FunctionType>::attachLeftSubtree(
     root->leftChildPtr = leftTree.root;
     leftTree.root = nullptr;
   }
+
 }
 
 template <typename TreeItemType, typename FunctionType>
